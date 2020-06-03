@@ -3,7 +3,7 @@
 
 # # Implementacija algoritama za obilazak grafa u dubinu i širinu
 
-# In[30]:
+# In[5]:
 
 
 from collections import defaultdict 
@@ -29,7 +29,7 @@ class Graph:
     def addEdge(self, a, b): 
         self.graph[a].append(b) 
   
-    # DFS rekurzivni obilazak 
+    # DFS rekurzivni obilazak grafa
     def DFS(self, a): 
         # Obeležava se da je čvor posećen i štampa se
         a.visited = True
@@ -38,25 +38,28 @@ class Graph:
         # Rekurzivno se obilaze deca čvora a koja nisu posećena
         for i in self.graph[a]: 
             if i.visited == False: 
-                self.DFS(i) 
-
-    def BFS(self, s): 
+                self.DFS(i)
+                
+    # BFS obilazak grada
+    def BFS(self, a): 
         
+        # Roditelj se dodaje u red i obeležava se da je posećen
         queue = [] 
-  
-        queue.append(s) 
+        queue.append(a) 
         s.visited = True
         
+        # Sve dok postoji čvorova u redu čvor a se skida iz reda i obilaze se njegova deca
         while queue: 
   
-            s = queue.pop(0) 
-            print("Posećen čvor -> ", s.value) 
-
-            for i in self.graph[s]: 
+            a = queue.pop(0) 
+            print("Posećen čvor -> ", a.value) 
+            
+            for i in self.graph[a]: 
                 if i.visited == False: 
                     queue.append(i) 
                     i.visited = True
         
+    # Resetovanje posećenosti čvorova
     def unvisited(self):
         for graphs in self.graph: 
             graphs.visited = False
@@ -67,63 +70,34 @@ def main():
     g = Graph()
 
     # Kreiranje čvorova grafa
+    a0  = Node("a0")
     a1  = Node("a1")
     a2  = Node("a2")
     a3  = Node("a3")
     a4  = Node("a4")
-    a5  = Node("a5")
-    a6  = Node("a6")
-    a7  = Node("a7")
-    a8  = Node("a8")
-    a9  = Node("a9")
-    a10 = Node("a10")
-    a11 = Node("a11")
 
-    # Kreiranje grana
-    g.addEdge(a1, a4)
-    g.addEdge(a1, a2)
-    g.addEdge(a2, a1)
-    g.addEdge(a2, a6)
-    g.addEdge(a2, a5)
-    g.addEdge(a2, a3)
-    g.addEdge(a3, a2)
-    g.addEdge(a3, a5)
-    g.addEdge(a4, a1)
-    g.addEdge(a4, a6)
-    g.addEdge(a5, a2)
-    g.addEdge(a5, a3)
-    g.addEdge(a5, a6)
-    g.addEdge(a5, a7)
-    g.addEdge(a5, a9)
-    g.addEdge(a6, a2)
-    g.addEdge(a6, a4)
-    g.addEdge(a6, a5)
-    g.addEdge(a6, a7)
-    g.addEdge(a6, a9)
-    g.addEdge(a7, a5)
-    g.addEdge(a7, a6)
-    g.addEdge(a8, a9)
-    g.addEdge(a9, a5)
-    g.addEdge(a9, a6)
-    g.addEdge(a9, a8)
-    g.addEdge(a10, a11)
-    g.addEdge(a11, a10)
+    
+    
+    g.addEdge(a0, a1) 
+    g.addEdge(a0, a2) 
+    g.addEdge(a1, a2) 
+    g.addEdge(a2, a0) 
+    g.addEdge(a2, a3) 
+    g.addEdge(a3, a3) 
+    g.addEdge(a3, a4)
+  
     
     
     print("Primena algoritma obilaska grafa u dubinu: ")
-    g.DFS(a6)
+    g.DFS(a2)
     
     g.unvisited()
     
     print("\n")
     print("Primena algoritma obilaska grafa u širinu: ")
-    g.BFS(a6)
+    g.BFS(a2)
     
 
 if __name__ == "__main__":
     main()
-
-
-
-
 
